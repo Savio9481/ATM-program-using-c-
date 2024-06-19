@@ -1,0 +1,95 @@
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Initial account balance
+double accountBalance = 1000.00;
+// Predefined PIN for the ATM
+const string correctPIN = "1234";
+
+bool validatePIN() {
+    string enteredPIN;
+    cout << "Enter your PIN: ";
+    cin >> enteredPIN;
+    
+    if (enteredPIN == correctPIN) {
+        return true;
+    } else {
+        cout << "Incorrect PIN. Please try again." << endl;
+        return false;
+    }
+}
+
+void displayBalance() {
+    cout << "Your current balance is: $" << accountBalance << endl;
+}
+
+void withdrawCash() {
+    double amount;
+    cout << "Enter the amount to withdraw: $";
+    cin >> amount;
+    
+    if (amount <= accountBalance) {
+        accountBalance -= amount;
+        cout << "Please take your cash. Your new balance is: $" << accountBalance << endl;
+    } else {
+        cout << "Insufficient balance. Transaction failed." << endl;
+    }
+}
+
+void depositCash() {
+    double amount;
+    cout << "Enter the amount to deposit: $";
+    cin >> amount;
+    
+    accountBalance += amount;
+    cout << "Your new balance is: $" << accountBalance << endl;
+}
+
+void displayMenu() {
+    cout << "ATM Main Menu:" << endl;
+    cout << "1. Balance Inquiry" << endl;
+    cout << "2. Cash Withdrawal" << endl;
+    cout << "3. Cash Deposit" << endl;
+    cout << "4. Exit" << endl;
+    cout << "Enter your choice: ";
+}
+
+int main() {
+    cout << "Welcome to the ATM" << endl;
+
+    if (!validatePIN()) {
+        return 0; // Exit if PIN validation fails
+    }
+
+    int choice;
+    bool running = true;
+
+    while (running) {
+        displayMenu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                displayBalance();
+                break;
+            case 2:
+                withdrawCash();
+                break;
+            case 3:
+                depositCash();
+                break;
+            case 4:
+                cout << "Thank you for using the ATM. Goodbye!" << endl;
+                running = false;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
